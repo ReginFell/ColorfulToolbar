@@ -45,15 +45,18 @@ public class ColorfulToolbar extends Toolbar {
         inflate(getContext(), R.layout.view_menu_ripple, this);
 
         mIconSwitch = (IconSwitch) findViewById(R.id.switcher);
+        mRipple = findViewById(R.id.ripple);
 
-        mIconSwitch.setOnClickListener(new OnClickListener() {
+        mIconSwitch.setOnCheckedChangeListener(new IconSwitch.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                changeStateAnimation(mIconSwitch, mRipple, R.color.colorAccent);
+            public void onCheckedChanged(boolean isChecked) {
+                if (isChecked) {
+                    changeStateAnimation(mIconSwitch, mRipple, R.color.colorAccent);
+                } else {
+                    changeStateAnimation(mIconSwitch, mRipple, R.color.colorPrimary);
+                }
             }
         });
-
-        mRipple = findViewById(R.id.color);
     }
 
     private void changeStateAnimation(final View source, final View ripple, final @ColorRes int endColor) {
