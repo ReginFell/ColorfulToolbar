@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:background="?colorPrimary"
-    tools:parentTag="android.widget.FrameLayout">
+    tools:parentTag="android.widget.FrameLayout"
+    tools:targetApi="lollipop">
 
     <LinearLayout
         android:id="@+id/container"
@@ -16,30 +17,28 @@
 
         <ImageView
             android:id="@+id/left"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:padding="5dp"
-            tools:src="@drawable/ic_menu"
+            android:layout_width="@dimen/switch_icon_size"
+            android:layout_height="@dimen/switch_icon_size"
+            android:padding="@dimen/icon_padding"
             tools:tint="?colorAccent" />
 
         <ImageView
             android:id="@+id/right"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:layout_marginStart="4dp"
-            android:padding="5dp"
-            tools:src="@drawable/ic_pin"
+            android:layout_width="@dimen/switch_icon_size"
+            android:layout_height="@dimen/switch_icon_size"
+            android:padding="@dimen/icon_padding"
             tools:tint="?colorAccent" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/indicator"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/switch_indicator_icon_size"
+        android:layout_height="@dimen/switch_indicator_icon_size"
         android:background="@drawable/shape_circle"
-        android:elevation="6dp"
-        android:orientation="horizontal">
+        android:elevation="@dimen/indicator_elevation"
+        android:orientation="horizontal"
+        tools:backgroundTint="@android:color/black">
 
         <ImageView
             android:id="@+id/left_mask"
@@ -47,9 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:elevation="6dp"
-            android:padding="6dp"
-            tools:src="@drawable/ic_menu"
+            android:elevation="@dimen/indicator_elevation"
+            android:padding="@dimen/indicator_icon_padding"
             tools:tint="@android:color/white" />
 
         <ImageView
@@ -58,9 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0"
-            android:elevation="6dp"
-            android:padding="6dp"
-            tools:src="@drawable/ic_pin"
+            android:elevation="@dimen/indicator_elevation"
+            android:padding="@dimen/indicator_icon_padding"
             tools:tint="@android:color/white" />
 
     </LinearLayout>

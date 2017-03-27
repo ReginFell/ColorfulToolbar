@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <public name="switch_padding_right" type="dimen" />
+    <public name="switch_icon_size" type="dimen" />
+    <public name="switch_indicator_icon_size" type="dimen" />
+    <public name="indicator_elevation" type="dimen" />
+    <public name="icon_padding" type="dimen" />
+    <public name="indicator_icon_padding" type="dimen" />
+</resources>

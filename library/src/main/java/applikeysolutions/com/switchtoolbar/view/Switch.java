@@ -4,35 +4,45 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.ColorRes;
+import android.support.annotation.Nullable;
 import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import applikeysolutions.com.switchtoolbar.R;
 
+//TODO add logic to retain state
 public class Switch extends FrameLayout {
 
-    private static final int UNCHECKED_COLOR_DEFAULT = R.attr.colorAccent;
-    private static final int CHECKED_COLOR_DEFAULT = R.attr.colorPrimary;
+    private static final int[] COLOR_CHECKED_STATE_SET = {android.R.attr.state_checked};
+    private static final int[] COLOR_UNCHECKED_STATE_SET = {-android.R.attr.state_checked};
+
     private static final int ANIMATION_DURATION_DEFAULT = 400;
 
-    @ColorRes private int mUncheckedColor = UNCHECKED_COLOR_DEFAULT;
-    @ColorRes private int mCheckedColor = CHECKED_COLOR_DEFAULT;
+    private ColorStateList mColorStateList;
+
     private int mAnimationDuration = ANIMATION_DURATION_DEFAULT;
 
     private boolean isChecked = false;
     private OnCheckedChangeListener mOnCheckedChangeListener;
+
+    private ImageView mRight;
+    private ImageView mLeft;
+
+    private ImageView mLeftMask;
+    private ImageView mRightMask;
 
     public Switch(Context context) {
         super(context);
@@ -59,42 +69,69 @@ public class Switch extends FrameLayout {
         mOnCheckedChangeListener = onCheckedChangeListener;
     }
 
-    public void setUncheckedColor(int uncheckedColor) {
-        mUncheckedColor = uncheckedColor;
+    public void setColorStateList(ColorStateList colorStateList) {
+        mColorStateList = colorStateList;
     }
 
-    public void setCheckedColor(int checkedColor) {
-        mCheckedColor = checkedColor;
+    public void setDrawableLeft(@Nullable Drawable drawable) {
+        if (drawable != null && drawable.getConstantState() != null) {
+            applyDrawable(mLeft, drawable,
+                    mColorStateList.getColorForState(COLOR_CHECKED_STATE_SET, mColorStateList.getDefaultColor()));
+
+            applyDrawable(mLeftMask, drawable.getConstantState().newDrawable(), android.R.color.white);
+        }
+    }
+
+    public void setDrawableRight(@Nullable Drawable drawable) {
+        if (drawable != null && drawable.getConstantState() != null) {
+            applyDrawable(mRight, drawable,
+                    mColorStateList.getColorForState(COLOR_UNCHECKED_STATE_SET, mColorStateList.getDefaultColor()));
+
+            applyDrawable(mRightMask, drawable.getConstantState().newDrawable(), android.R.color.white);
+        }
     }
 
     public void setAnimationDuration(int animationDuration) {
         mAnimationDuration = animationDuration;
     }
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
     private void init() {
         inflate(getContext(), R.layout.view_icon_switch, this);
         final ViewGroup container = (ViewGroup) findViewById(R.id.container);
         final LinearLayout indicator = (LinearLayout) findViewById(R.id.indicator);
-        final View leftMask = findViewById(R.id.left_mask);
-        final View rightMask = findViewById(R.id.right_mask);
+        mLeft = (ImageView) findViewById(R.id.left);
+        mRight = (ImageView) findViewById(R.id.right);
+
+        mLeftMask = (ImageView) findViewById(R.id.left_mask);
+        mRightMask = (ImageView) findViewById(R.id.right_mask);
 
         container.setOnClickListener(new OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 TransitionManager.beginDelayedTransition(Switch.this, new AutoTransition().setDuration(mAnimationDuration));
 
                 final LayoutParams indicatorLayoutParams = (LayoutParams) indicator.getLayoutParams();
-                final LinearLayout.LayoutParams leftMaskLayoutParams = (LinearLayout.LayoutParams) leftMask.getLayoutParams();
-                final LinearLayout.LayoutParams rightMaskLayoutParams = (LinearLayout.LayoutParams) rightMask.getLayoutParams();
+                final LinearLayout.LayoutParams leftMaskLayoutParams = (LinearLayout.LayoutParams) mLeftMask.getLayoutParams();
+                final LinearLayout.LayoutParams rightMaskLayoutParams = (LinearLayout.LayoutParams) mRightMask.getLayoutParams();
+
+                final int colorChecked = mColorStateList.getColorForState(COLOR_CHECKED_STATE_SET,
+                        mColorStateList.getDefaultColor());
+                final int colorUnchecked = mColorStateList.getColorForState(COLOR_UNCHECKED_STATE_SET,
+                        mColorStateList.getDefaultColor());
 
                 if (isChecked) {
-                    changeStateAnimation(indicator, mUncheckedColor, mCheckedColor);
+                    changeStateAnimation(indicator, colorUnchecked, colorChecked);
                     indicatorLayoutParams.gravity = (Gravity.START);
 
                     leftMaskLayoutParams.weight = 1;
                     rightMaskLayoutParams.weight = 0;
                 } else {
-                    changeStateAnimation(indicator, mCheckedColor, mUncheckedColor);
+                    changeStateAnimation(indicator, colorChecked, colorUnchecked);
                     indicatorLayoutParams.gravity = (Gravity.END);
 
                     leftMaskLayoutParams.weight = 0;
@@ -102,14 +139,19 @@ public class Switch extends FrameLayout {
                 }
 
                 indicator.setLayoutParams(indicatorLayoutParams);
-                leftMask.setLayoutParams(leftMaskLayoutParams);
-                rightMask.setLayoutParams(rightMaskLayoutParams);
+                mLeftMask.setLayoutParams(leftMaskLayoutParams);
+                mRightMask.setLayoutParams(rightMaskLayoutParams);
                 isChecked = !isChecked;
                 if (mOnCheckedChangeListener != null) {
                     mOnCheckedChangeListener.onCheckedChanged(isChecked);
                 }
             }
         });
+    }
+
+    private void applyDrawable(ImageView imageView, @Nullable Drawable drawable, int color) {
+        ThemeUtils.applyTint(getContext(), drawable, color);
+        imageView.setImageDrawable(drawable);
     }
 
     private void changeStateAnimation(final View source, final @ColorRes int fromColor, final @ColorRes int endColor) {
@@ -131,5 +173,6 @@ public class Switch extends FrameLayout {
     public interface OnCheckedChangeListener {
 
         void onCheckedChanged(boolean isChecked);
+
     }
 }

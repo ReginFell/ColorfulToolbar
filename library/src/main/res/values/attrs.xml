@@ -2,8 +2,9 @@
 <resources>
 
     <declare-styleable name="SwitchToolbar">
-        <attr name="checkedColor" format="reference|color" />
-        <attr name="uncheckedColor" format="reference|color" />
+        <attr name="itemColor" format="reference|color" />
+        <attr name="drawableLeft" format="reference|color" />
+        <attr name="drawableRight" format="reference|color" />
         <attr name="withRipple" format="boolean" />
         <attr name="animationDuration" format="integer" />
     </declare-styleable>
