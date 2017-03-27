@@ -23,23 +23,23 @@ import android.widget.LinearLayout;
 
 import com.applikeysolutions.colorfulltoolbar.R;
 
-public class IconSwitch extends FrameLayout {
+class Switch extends FrameLayout {
 
     private boolean isChecked = false;
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
-    public IconSwitch(@NonNull Context context) {
+    public Switch(@NonNull Context context) {
         super(context);
     }
 
-    public IconSwitch(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public Switch(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public IconSwitch(@NonNull Context context,
-                      @Nullable AttributeSet attrs,
-                      @AttrRes int defStyleAttr) {
+    public Switch(@NonNull Context context,
+            @Nullable AttributeSet attrs,
+            @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -49,10 +49,10 @@ public class IconSwitch extends FrameLayout {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public IconSwitch(@NonNull Context context,
-                      @Nullable AttributeSet attrs,
-                      @AttrRes int defStyleAttr,
-                      @StyleRes int defStyleRes) {
+    public Switch(@NonNull Context context,
+            @Nullable AttributeSet attrs,
+            @AttrRes int defStyleAttr,
+            @StyleRes int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
@@ -67,7 +67,7 @@ public class IconSwitch extends FrameLayout {
         container.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TransitionManager.beginDelayedTransition(IconSwitch.this);
+                TransitionManager.beginDelayedTransition(Switch.this);
 
                 final FrameLayout.LayoutParams indicatorLayoutParams = (FrameLayout.LayoutParams) indicator.getLayoutParams();
                 final LinearLayout.LayoutParams leftMaskLayoutParams = (LinearLayout.LayoutParams) leftMask.getLayoutParams();
@@ -100,7 +100,7 @@ public class IconSwitch extends FrameLayout {
 
     private void changeStateAnimation(final View source, final @ColorRes int fromColor, final @ColorRes int endColor) {
         final ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
-                ContextCompat.getColor(getContext(), fromColor),   ContextCompat.getColor(getContext(), endColor));
+                ContextCompat.getColor(getContext(), fromColor), ContextCompat.getColor(getContext(), endColor));
         colorAnimation.setDuration(400);
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
@@ -114,8 +114,8 @@ public class IconSwitch extends FrameLayout {
         new NoPauseAnimator(colorAnimation).start();
     }
 
-
     public interface OnCheckedChangeListener {
+
         void onCheckedChanged(boolean isChecked);
     }
 }

@@ -5,10 +5,8 @@ import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -20,23 +18,22 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 
 import com.applikeysolutions.colorfulltoolbar.R;
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class ColorfulToolbar extends Toolbar {
+public class SwitchToolbar extends Toolbar {
 
-    private IconSwitch mIconSwitch;
+    private Switch mSwitch;
     private View mRipple;
 
-    public ColorfulToolbar(Context context) {
+    public SwitchToolbar(Context context) {
         super(context);
         init();
     }
 
-    public ColorfulToolbar(Context context, @Nullable AttributeSet attrs) {
+    public SwitchToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ColorfulToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SwitchToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -44,16 +41,16 @@ public class ColorfulToolbar extends Toolbar {
     private void init() {
         inflate(getContext(), R.layout.view_menu_ripple, this);
 
-        mIconSwitch = (IconSwitch) findViewById(R.id.switcher);
+        mSwitch = (Switch) findViewById(R.id.switcher);
         mRipple = findViewById(R.id.ripple);
 
-        mIconSwitch.setOnCheckedChangeListener(new IconSwitch.OnCheckedChangeListener() {
+        mSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(boolean isChecked) {
                 if (isChecked) {
-                    changeStateAnimation(mIconSwitch, mRipple, R.color.colorAccent);
+                    changeStateAnimation(mSwitch, mRipple, R.color.colorAccent);
                 } else {
-                    changeStateAnimation(mIconSwitch, mRipple, R.color.colorPrimary);
+                    changeStateAnimation(mSwitch, mRipple, R.color.colorPrimary);
                 }
             }
         });
@@ -68,7 +65,7 @@ public class ColorfulToolbar extends Toolbar {
         final int startRadius = 0;
         final int endRadius = (int) Math.hypot(w, h) / 2;
 
-        final Animator revealAnimation = ViewAnimationUtils.createCircularReveal(ripple, w, h, startRadius, endRadius);
+        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(ripple, w, h, startRadius, endRadius);
         final Animator fadeOut = ObjectAnimator.ofFloat(ripple, View.ALPHA, 1f, 0f);
 
         final AnimatorSet animationSet = new AnimatorSet();
@@ -86,7 +83,7 @@ public class ColorfulToolbar extends Toolbar {
             }
         });
 
-        animationSet.playTogether(revealAnimation, colorAnimation, fadeOut);
+        animationSet.playTogether(revealAnimator, colorAnimation, fadeOut);
 
         new NoPauseAnimator(animationSet).start();
     }

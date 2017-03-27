@@ -7,9 +7,9 @@
         android:id="@+id/ripple"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.0" />
+        android:visibility="gone" />
 
-    <com.applikeysolutions.colorfulltoolbar.ui.view.IconSwitch
+    <com.applikeysolutions.colorfulltoolbar.ui.view.Switch
         android:id="@+id/switcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

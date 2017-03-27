@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.applikeysolutions.colorfulltoolbar.ui.view.ColorfulToolbar
+    <com.applikeysolutions.colorfulltoolbar.ui.view.SwitchToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
