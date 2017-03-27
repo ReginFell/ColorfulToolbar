@@ -1,4 +1,4 @@
-package com.applikeysolutions.colorfulltoolbar.ui.view;
+package applikeysolutions.com.switchtoolbar.view;
 
 import android.view.animation.Interpolator;
 

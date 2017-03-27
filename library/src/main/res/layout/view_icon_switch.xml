@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:tools="http://schemas.android.com/tools"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       tools:background="@color/colorPrimary"
-       tools:parentTag="android.widget.FrameLayout">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:background="?colorPrimary"
+    tools:parentTag="android.widget.FrameLayout">
 
     <LinearLayout
         android:id="@+id/container"
@@ -19,8 +19,8 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:padding="5dp"
-            android:src="@drawable/ic_menu"
-            android:tint="@color/colorAccent"/>
+            tools:src="@drawable/ic_menu"
+            tools:tint="?colorAccent" />
 
         <ImageView
             android:id="@+id/right"
@@ -28,8 +28,8 @@
             android:layout_height="26dp"
             android:layout_marginStart="4dp"
             android:padding="5dp"
-            android:src="@drawable/ic_pin"
-            android:tint="@color/colorAccent"/>
+            tools:src="@drawable/ic_pin"
+            tools:tint="?colorAccent" />
 
     </LinearLayout>
 
@@ -38,6 +38,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:background="@drawable/shape_circle"
+        android:elevation="6dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -48,8 +49,8 @@
             android:layout_weight="1"
             android:elevation="6dp"
             android:padding="6dp"
-            android:src="@drawable/ic_menu"
-            android:tint="@android:color/white"/>
+            tools:src="@drawable/ic_menu"
+            tools:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/right_mask"
@@ -59,8 +60,8 @@
             android:layout_weight="0"
             android:elevation="6dp"
             android:padding="6dp"
-            android:src="@drawable/ic_pin"
-            android:tint="@android:color/white"/>
+            tools:src="@drawable/ic_pin"
+            tools:tint="@android:color/white" />
 
     </LinearLayout>
 

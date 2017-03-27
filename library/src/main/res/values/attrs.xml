@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SwitchToolbar">
+        <attr name="checkedColor" format="reference|color" />
+        <attr name="uncheckedColor" format="reference|color" />
+        <attr name="withRipple" format="boolean" />
+        <attr name="animationDuration" format="integer" />
+    </declare-styleable>
+
+</resources>

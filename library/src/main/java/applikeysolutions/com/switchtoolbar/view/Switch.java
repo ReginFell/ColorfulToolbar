@@ -1,4 +1,4 @@
-package com.applikeysolutions.colorfulltoolbar.ui.view;
+package applikeysolutions.com.switchtoolbar.view;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
@@ -6,41 +6,52 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
+import android.support.transition.AutoTransition;
 import android.support.transition.TransitionManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
-import com.applikeysolutions.colorfulltoolbar.R;
+import applikeysolutions.com.switchtoolbar.R;
 
-class Switch extends FrameLayout {
+public class Switch extends FrameLayout {
+
+    private static final int UNCHECKED_COLOR_DEFAULT = R.attr.colorAccent;
+    private static final int CHECKED_COLOR_DEFAULT = R.attr.colorPrimary;
+    private static final int ANIMATION_DURATION_DEFAULT = 400;
+
+    @ColorRes private int mUncheckedColor = UNCHECKED_COLOR_DEFAULT;
+    @ColorRes private int mCheckedColor = CHECKED_COLOR_DEFAULT;
+    private int mAnimationDuration = ANIMATION_DURATION_DEFAULT;
 
     private boolean isChecked = false;
     private OnCheckedChangeListener mOnCheckedChangeListener;
 
-    public Switch(@NonNull Context context) {
+    public Switch(Context context) {
         super(context);
+        init();
     }
 
-    public Switch(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public Switch(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public Switch(@NonNull Context context,
-            @Nullable AttributeSet attrs,
-            @AttrRes int defStyleAttr) {
+    public Switch(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public Switch(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
@@ -48,13 +59,16 @@ class Switch extends FrameLayout {
         mOnCheckedChangeListener = onCheckedChangeListener;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public Switch(@NonNull Context context,
-            @Nullable AttributeSet attrs,
-            @AttrRes int defStyleAttr,
-            @StyleRes int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+    public void setUncheckedColor(int uncheckedColor) {
+        mUncheckedColor = uncheckedColor;
+    }
+
+    public void setCheckedColor(int checkedColor) {
+        mCheckedColor = checkedColor;
+    }
+
+    public void setAnimationDuration(int animationDuration) {
+        mAnimationDuration = animationDuration;
     }
 
     private void init() {
@@ -67,20 +81,20 @@ class Switch extends FrameLayout {
         container.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TransitionManager.beginDelayedTransition(Switch.this);
+                TransitionManager.beginDelayedTransition(Switch.this, new AutoTransition().setDuration(mAnimationDuration));
 
-                final FrameLayout.LayoutParams indicatorLayoutParams = (FrameLayout.LayoutParams) indicator.getLayoutParams();
+                final LayoutParams indicatorLayoutParams = (LayoutParams) indicator.getLayoutParams();
                 final LinearLayout.LayoutParams leftMaskLayoutParams = (LinearLayout.LayoutParams) leftMask.getLayoutParams();
                 final LinearLayout.LayoutParams rightMaskLayoutParams = (LinearLayout.LayoutParams) rightMask.getLayoutParams();
 
                 if (isChecked) {
-                    changeStateAnimation(indicator, R.color.colorPrimary, R.color.colorAccent);
+                    changeStateAnimation(indicator, mUncheckedColor, mCheckedColor);
                     indicatorLayoutParams.gravity = (Gravity.START);
 
                     leftMaskLayoutParams.weight = 1;
                     rightMaskLayoutParams.weight = 0;
                 } else {
-                    changeStateAnimation(indicator, R.color.colorAccent, R.color.colorPrimary);
+                    changeStateAnimation(indicator, mCheckedColor, mUncheckedColor);
                     indicatorLayoutParams.gravity = (Gravity.END);
 
                     leftMaskLayoutParams.weight = 0;
@@ -101,7 +115,7 @@ class Switch extends FrameLayout {
     private void changeStateAnimation(final View source, final @ColorRes int fromColor, final @ColorRes int endColor) {
         final ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(),
                 ContextCompat.getColor(getContext(), fromColor), ContextCompat.getColor(getContext(), endColor));
-        colorAnimation.setDuration(400);
+        colorAnimation.setDuration(mAnimationDuration);
         colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 
             @Override

@@ -1,4 +1,4 @@
-package com.applikeysolutions.colorfulltoolbar.ui.view;
+package applikeysolutions.com.switchtoolbar.view;
 
 import android.animation.Animator;
 import android.animation.TimeInterpolator;
@@ -134,13 +134,13 @@ public class NoPauseAnimator extends Animator {
     }
 
     public static class AnimatorListenerWrapper
-            implements Animator.AnimatorListener {
+            implements AnimatorListener {
 
         private final Animator mAnimator;
-        private final Animator.AnimatorListener mListener;
+        private final AnimatorListener mListener;
 
         public AnimatorListenerWrapper(Animator animator,
-                Animator.AnimatorListener listener) {
+                AnimatorListener listener) {
             mAnimator = animator;
             mListener = listener;
         }
