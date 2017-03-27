@@ -129,9 +129,10 @@ public class SwitchToolbar extends Toolbar {
         });
 
         final FrameLayout frameLayout = new FrameLayout(getContext());
-        final Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        final Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 getActionBarSize(getContext()));
         frameLayout.setLayoutParams(layoutParams);
+        layoutParams.gravity = Gravity.END;
 
         frameLayout.addView(mRipple);
         frameLayout.addView(mSwitch);
@@ -235,8 +236,8 @@ public class SwitchToolbar extends Toolbar {
 
     private View createRippleView() {
         final View view = new View(getContext());
-        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+        final FrameLayout.LayoutParams layoutParams =
+                new FrameLayout.LayoutParams(200, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
         view.setVisibility(GONE);
         return view;

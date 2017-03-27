@@ -113,7 +113,9 @@ public class Switch extends FrameLayout {
 
             @Override
             public void onClick(View v) {
-                TransitionManager.beginDelayedTransition(Switch.this, new AutoTransition().setDuration(mAnimationDuration));
+                TransitionManager.beginDelayedTransition(Switch.this, new AutoTransition()
+                        .addTarget(indicator)
+                        .setDuration(mAnimationDuration));
 
                 final LayoutParams indicatorLayoutParams = (LayoutParams) indicator.getLayoutParams();
                 final LinearLayout.LayoutParams leftMaskLayoutParams = (LinearLayout.LayoutParams) mLeftMask.getLayoutParams();
