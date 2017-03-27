@@ -37,7 +37,7 @@ public class SwitchToolbar extends Toolbar {
     private static final int[] COLOR_UNCHECKED_STATE_SET = {-android.R.attr.state_checked};
 
     private static final boolean WITH_RIPPLE_DEFAULT = true;
-    private static final int ANIMATION_DURATION_DEFAULT = 400;
+    private static final int ANIMATION_DURATION_DEFAULT = 300;
 
     private boolean mWithRipple = WITH_RIPPLE_DEFAULT;
     private int mAnimationDuration = ANIMATION_DURATION_DEFAULT;

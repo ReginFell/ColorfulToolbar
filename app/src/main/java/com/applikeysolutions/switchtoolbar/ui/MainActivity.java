@@ -23,5 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void initToolbar() {
         setSupportActionBar(mToolbar);
+        setTitle("TEST TEST TEST");
     }
 }

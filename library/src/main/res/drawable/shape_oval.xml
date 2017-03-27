@@ -3,8 +3,8 @@
     <solid android:color="#37474F" />
 
     <corners
-        android:bottomLeftRadius="30dp"
-        android:bottomRightRadius="30dp"
-        android:topLeftRadius="30dp"
-        android:topRightRadius="30dp" />
+        android:bottomLeftRadius="@dimen/switch_indicator_icon_size"
+        android:bottomRightRadius="@dimen/switch_indicator_icon_size"
+        android:topLeftRadius="@dimen/switch_indicator_icon_size"
+        android:topRightRadius="@dimen/switch_indicator_icon_size" />
 </shape>
