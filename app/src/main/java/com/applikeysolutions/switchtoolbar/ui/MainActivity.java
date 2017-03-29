@@ -3,6 +3,7 @@ package com.applikeysolutions.switchtoolbar.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 
 import com.applikeysolutions.switchtoolbar.R;
 
@@ -19,6 +20,12 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (SwitchToolbar) findViewById(R.id.toolbar);
 
         initToolbar();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void initToolbar() {

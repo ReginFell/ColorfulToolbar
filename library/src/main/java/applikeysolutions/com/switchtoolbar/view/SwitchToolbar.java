@@ -162,35 +162,12 @@ public class SwitchToolbar extends Toolbar {
         ripple.setBackgroundColor(ContextCompat.getColor(getContext(), endColor));
 
         int w = ripple.getWidth() - source.getWidth() / 2;
-        int h = ripple.getHeight() - source.getHeight() / 2;
+        int h = ripple.getHeight() / 2;
 
-        final int startRadius = 0;
+        final int beginRadius = 0;
         final int endRadius = (int) Math.hypot(w, h) / 2;
 
-        final Animator animator = ViewAnimationUtils.createCircularReveal(ripple, w, h, startRadius, endRadius);
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                ripple.setVisibility(VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                ripple.setVisibility(GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                ripple.setVisibility(GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        });
-
-        return animator;
+        return ViewAnimationUtils.createCircularReveal(ripple, w, h, beginRadius, endRadius);
     }
 
     private Animator createFadeAnimator(final View ripple) {
@@ -237,9 +214,9 @@ public class SwitchToolbar extends Toolbar {
     private View createRippleView() {
         final View view = new View(getContext());
         final FrameLayout.LayoutParams layoutParams =
-                new FrameLayout.LayoutParams(200, ViewGroup.LayoutParams.WRAP_CONTENT);
+                new FrameLayout.LayoutParams(getContext().getResources().getDimensionPixelSize(R.dimen.ripple_width),
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(layoutParams);
-        view.setVisibility(GONE);
         return view;
     }
 
