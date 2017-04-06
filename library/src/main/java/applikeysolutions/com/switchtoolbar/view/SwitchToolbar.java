@@ -58,7 +58,7 @@ public class SwitchToolbar extends Toolbar {
 
     public SwitchToolbar(Context context, AttributeSet attrs) {
         super(context, attrs);
-        inflate(context, attrs, 0);
+        inflate(context, attrs, R.style.Widget_AppCompat_Toolbar);
         init();
     }
 

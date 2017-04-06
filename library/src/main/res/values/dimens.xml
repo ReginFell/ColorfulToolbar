@@ -3,7 +3,7 @@
     <dimen name="switch_padding_right">8dp</dimen>
     <dimen name="switch_icon_size">26dp</dimen>
     <dimen name="switch_indicator_icon_size">30dp</dimen>
-    <dimen name="ripple_width">250dp</dimen>
+    <dimen name="ripple_width">150dp</dimen>
     <dimen name="indicator_elevation">6dp</dimen>
     <dimen name="icon_padding">5dp</dimen>
     <dimen name="indicator_icon_padding">6dp</dimen>
